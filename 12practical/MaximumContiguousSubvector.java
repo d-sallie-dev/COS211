@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MaximumContiguousSubvector {
     public static void main(String[] args) {
-        int n = 1   0^2; 
+        int n = 10^3; 
 	    int[] X = new int[n];
         Random rand = new Random();
 
@@ -117,6 +117,26 @@ public class MaximumContiguousSubvector {
 
         System.out.println("mcsOn2B Count: " + count);
         return maxsofar;
+    }
+
+    /**
+     * O(n) implementation
+     */ 
+    private static int mcsOn(int[] X) {
+        int n = X.length;
+        int maxSoFar = 0;
+        int maxToHere = 0;
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {  // [0, n)
+            count++;
+
+            maxToHere = Math.max(maxToHere + X[i], 0);
+            maxSoFar = Math.max(maxSoFar, maxToHere);
+        }
+
+        System.out.println("mcsOn Count: " + count);
+        return maxSoFar;
     }
 
 }
