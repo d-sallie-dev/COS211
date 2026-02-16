@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MaximumContiguousSubvector {
     public static void main(String[] args) {
-        int n = 10^3; 
+        int n = 10^6; 
 	    int[] X = new int[n];
         Random rand = new Random();
 
