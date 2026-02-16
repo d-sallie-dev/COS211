@@ -90,4 +90,33 @@ public class MaximumContiguousSubvector {
         System.out.println("mcsOn2A Count: " + count);
         return maxsofar;
     }
+    /**
+     * O(n^2) implementation
+     */
+    private static int mcsOn2B(int[] X) {
+        int n = X.length;
+        int[] sumTo = new int[n + 1];
+        int count = 0;
+        
+        sumTo[0] = 0;
+        for (int i = 0; i < n; i++) {  // [0, n)
+            sumTo[i + 1] = sumTo[i] + X[i];
+        }
+        
+        int maxsofar = 0;
+        for (int low = 0; low < n; low++) {  // [0, n)
+            for (int high = low; high < n; high++) {  // [low, n)
+                count++;
+
+                int sum = sumTo[high + 1] - sumTo[low]; // sum of X[low..high]
+                if (sum > maxsofar) {
+                    maxsofar = sum;
+                }    
+            }
+        }
+
+        System.out.println("mcsOn2B Count: " + count);
+        return maxsofar;
+    }
+
 }
