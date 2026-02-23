@@ -1,6 +1,5 @@
 import java.lang.Math.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.*;
 
 import java.io.BufferedReader;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class timeMethods {
-    public static int N = 10;
+    public static int N = 32654;
     public static void main(String args[]){
 
         DecimalFormat twoD = new DecimalFormat("0.00");
@@ -21,7 +20,7 @@ public class timeMethods {
         double runTime = 0, runTime2 = 0, time;
         double totalTime = 0.0;
         int n = N;
-        int repetition, repetitions = 30;
+        int repetition, repetitions = 1;
 
         // Get our array of data (since this is a mock scenario, only the
         // keys of the data is retrieved and not the string value associated
@@ -33,12 +32,12 @@ public class timeMethods {
         for(repetition = 0; repetition < repetitions; repetition++) {
             start = System.currentTimeMillis();
 
-            int randomKey = rand.nextInt(1, N);
+            int randomKey = rand.nextInt(1, N + 1);
+            System.out.println("Random Key: " + randomKey);
 
             // call the procedures to time here:
             linearsearch(randomKey, data);
             binarysearch(randomKey, data);
-            // Figure out how to alter this guideline here,
 
             finish = System.currentTimeMillis();
 
@@ -69,8 +68,8 @@ public class timeMethods {
     }
 
     /**
-     * AAAAAAAAAAAAAAAAAAAAAAAA
-     * @return
+     * Reads the text file, extracts the integer value and stores into an integer array
+     * @return data array
      */
     static int[] getData () {
         int[] data = new int[N];
@@ -81,6 +80,8 @@ public class timeMethods {
             while ((line = reader.readLine()) != null) {
                 // Extract data from each line
                 String[] parts = line.split(" ");
+
+                if (i >= N) break; // data array should not go out of index bound
                 data[i] = Integer.parseInt(parts[0].trim());
 
                 i++;
