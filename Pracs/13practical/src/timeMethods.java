@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
+// DAIYAAN SALLIE - 4503224
+
 public class timeMethods {
     public static int N = 32654;
     public static void main(String args[]){
