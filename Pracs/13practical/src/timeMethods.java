@@ -1,7 +1,16 @@
+import java.lang.Math.*;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.text.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Random;
+
 public class timeMethods {
-    public static int N = 100;
+    public static int N = 10;
     public static void main(String args[]){
 
         DecimalFormat twoD = new DecimalFormat("0.00");
@@ -14,13 +23,21 @@ public class timeMethods {
         int n = N;
         int repetition, repetitions = 30;
 
+        // Get our array of data (since this is a mock scenario, only the
+        // keys of the data is retrieved and not the string value associated
+        int[] data = getData();
+
+        Random rand = new Random();
+
         runTime = 0;
         for(repetition = 0; repetition < repetitions; repetition++) {
             start = System.currentTimeMillis();
 
+            int randomKey = rand.nextInt(1, N);
+
             // call the procedures to time here:
-            linearsearch();
-            binarysearch();
+            linearsearch(randomKey, data);
+            binarysearch(randomKey, data);
             // Figure out how to alter this guideline here,
 
             finish = System.currentTimeMillis();
@@ -51,18 +68,58 @@ public class timeMethods {
         System.out.println();
     }
 
-    static int linearsearch(int key, int array[]) {
-        for (int i = 0; i < n; i++) {
-            if (array[i] == key) {
+    /**
+     * AAAAAAAAAAAAAAAAAAAAAAAA
+     * @return
+     */
+    static int[] getData () {
+        int[] data = new int[N];
+        int i = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Pracs/13practical/src/ulysses.numbered"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Extract data from each line
+                String[] parts = line.split(" ");
+                data[i] = Integer.parseInt(parts[0].trim());
+
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    static int linearsearch(int key, int data[]) {
+        int length = data.length;
+
+        for (int i = 0; i < length; i++) {
+            if (data[i] == key) {
                 return i;
             }
         }
+
+        return -1;
     }
 
-    static void binarysearch(int n,
-                                 yourMethodParameter1,
-                                 yourMethodParameter2, . . . ) {
-        // The declarations and body of your method / s
-        // The final statement of this code.
+    static int binarysearch(int key, int data[]) {
+        int low = 0;
+        int high = data.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (data[mid] == key) {
+                return mid;
+            } else if (data[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return -1;
     }
 }
