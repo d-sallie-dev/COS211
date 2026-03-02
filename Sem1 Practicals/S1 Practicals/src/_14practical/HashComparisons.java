@@ -14,7 +14,26 @@ public class HashComparisons {
         System.out.println("Commencing shuffle");
         shuffleArray(keys);
 
+        Entry[] data = new Entry[N];
 
+        for (int i = 0; i < N; i++) {
+            // The key is the shuffled number, the value is its rank (1..N) 
+            data[i] = new Entry(keys[i], String.valueOf(i + 1));
+        }
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(data[i].key + "\t" + data[i].value);
+        }
+    }
+
+    static class Entry {
+        int key;
+        String value;
+
+        public Entry(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 
     /**
