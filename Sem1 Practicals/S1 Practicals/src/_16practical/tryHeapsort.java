@@ -1,5 +1,11 @@
 package _16practical;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * Project: Practical 6 - Heapsort Bottom-Up vs Top-Down
  */
@@ -80,6 +86,7 @@ public class tryHeapsort {
 
         tryHeapsort heapS = new tryHeapsort();
 
+        System.out.println("--- Hard-coded Example Test Words ---");
         // 2. Time Bottom-Up
         long start = System.nanoTime();
         heapS.buildBottomUp(myWords);
@@ -93,5 +100,48 @@ public class tryHeapsort {
         heapS.sort();
         end = System.nanoTime();
         System.out.println("Top-Down Time: " + (end - start) + " ns");
+        System.out.println();
+
+        String fileName = "anagramsSorted.txt";
+        ArrayList<String> wordList = new ArrayList<>();
+
+        // 1. Load words from the sorted file
+        try (Scanner fileScanner = new Scanner(new File(fileName))) {
+            while (fileScanner.hasNext()) {
+                wordList.add(fileScanner.next());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found. Check the file name!");
+            return;
+        }
+
+        // Convert ArrayList to a regular String array for our heap
+        String[] allWords = wordList.toArray(new String[0]);
+        
+        // 2. Test with a small set first (20 words)
+        String[] smallSet = Arrays.copyOfRange(allWords, 0, Math.min(20, allWords.length));
+        tryHeapsort th = new tryHeapsort();
+        
+        System.out.println("--- Small Scale Test (20 words) ---");
+        th.buildBottomUp(smallSet);
+        th.sort();
+        System.out.println("Sorted: " + Arrays.toString(th.A));
+
+        // 3. Timing the big set
+        System.out.println("\n--- Large Scale Timings ---");
+
+        // Bottom-Up Timing
+        long startBU = System.nanoTime();
+        th.buildBottomUp(allWords);
+        th.sort();
+        long endBU = System.nanoTime();
+        System.out.println("Bottom-Up Total Time: " + (endBU - startBU) + " ns");
+
+        // Top-Down Timing
+        long startTD = System.nanoTime();
+        th.buildTopDown(allWords);
+        th.sort();
+        long endTD = System.nanoTime();
+        System.out.println("Top-Down Total Time: " + (endTD - startTD) + " ns");
     }
 }
