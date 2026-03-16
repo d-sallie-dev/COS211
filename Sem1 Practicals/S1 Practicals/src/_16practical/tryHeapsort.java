@@ -42,6 +42,29 @@ public class tryHeapsort {
         }
     }
 
+    // --- PART B: TOP-DOWN ---
+    public void buildTopDown(String[] words) {
+        this.A = new String[words.length];
+        this.n = 0;
+        for (String word : words) {
+            insert(word); // Repeatedly insert
+        }
+    }
+
+    private void insert(String word) {
+        A[n] = word;
+        int current = n;
+        n++;
+        // "Swim" up to the correct spot
+        while (current > 0) {
+            int parent = (current - 1) / 2;
+            if (A[current].compareTo(A[parent]) > 0) {
+                swap(current, parent);
+                current = parent;
+            } else break;
+        }
+    }
+
     // --- SHARED SORTING LOGIC ---
     public void sort() {
         for (int i = A.length - 1; i > 0; i--) {
@@ -51,7 +74,7 @@ public class tryHeapsort {
     }
 
     public static void main(String[] args) {
-        // 1. Load your words here (Use your previous practical's cleaning code)
+        // 1. Example words for testing
         String[] myWords = {"abba", "able", "aboard", "ac", "ache", "act", "acts",
             "arce", "being", "blake", "blow", "boats"}; // Example 
 
@@ -63,5 +86,12 @@ public class tryHeapsort {
         heapS.sort();
         long end = System.nanoTime();
         System.out.println("Bottom-Up Time: " + (end - start) + " ns");
+
+        // 3. Time Top-Down
+        start = System.nanoTime();
+        heapS.buildTopDown(myWords);
+        heapS.sort();
+        end = System.nanoTime();
+        System.out.println("Top-Down Time: " + (end - start) + " ns");
     }
 }
