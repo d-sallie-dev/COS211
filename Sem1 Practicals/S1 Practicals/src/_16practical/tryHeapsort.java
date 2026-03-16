@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 /**
  * Project: Practical 6 - Heapsort Bottom-Up vs Top-Down
+ * N.B - Consulted with Gemini 3 Flash
+ * Developer: DAIYAAN SALLIE - 4503224
  */
 
 public class tryHeapsort {
